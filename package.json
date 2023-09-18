@@ -12,6 +12,15 @@
     "@commitlint/cli": "^17.7.1",
     "@commitlint/config-conventional": "^17.7.0",
     "@nuxt/devtools": "latest",
-    "nuxt": "^3.7.1"
+    "lodash": "^4.17.21",
+    "nuxt": "^3.7.1",
+    "nuxt-icon": "^0.5.0",
+    "sass": "^1.66.1"
+  },
+  "dependencies": {
+    "@tiptap/pm": "^2.1.10",
+    "@tiptap/starter-kit": "^2.1.10",
+    "@tiptap/vue-3": "^2.1.10",
+    "vuex": "^4.0.2"
   }
 }
