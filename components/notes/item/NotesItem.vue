@@ -5,7 +5,7 @@
         <h3>{{ note.title }}</h3>
         <div>
             <span class="notes-item__date">{{ getDate(note.date) }}</span>
-            <span class="notes-item__content" v-html="note.content || PLACEHOLDER"></span>
+            <span class="notes-item__content" v-html="useTruncateString(note.content) || PLACEHOLDER"></span>
         </div>
     </div>
 </template>
@@ -34,7 +34,7 @@ const getDate = (ms: number) => {
     margin-bottom: 20px;
 
     &_active {
-        background-color: #a2a8d3;
+        background-color: $secondary;
         color: White;
     }
 

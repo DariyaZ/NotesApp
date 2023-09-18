@@ -77,7 +77,7 @@ const deleteNote = async (id: number | undefined) => {
         margin-bottom: 20px;
 
         &-active {
-            background-color: #e7eaf6;
+            background-color: $primary;
         }
 
         &_date {
