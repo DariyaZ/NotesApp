@@ -1,7 +1,23 @@
 <template>
 	<div class="main-layout">
         <div class="main-layout__sidebar">
-            <NotesList :notes="notes" :activeNoteId="activeNoteId" @getNotes="getNotes" @updateActiveNoteId="updateActiveNoteId"/>
+            <NotesList :notes="notesToDisplay"
+                :activeNoteId="activeNoteId"
+                @getNotes="getNotes"
+                @updateActiveNoteId="updateActiveNoteId"
+            />
+        </div>
+
+        <div class="main-layout__content">
+            <NotesHeader
+                :note="activeNote"
+                @onSearch="onSearch"
+                @onEdit="onEdit"
+                @getNotes="getNotes"
+            />
+            <client-only>
+                <NotesEditor :note="activeNote" :editingMode="editingMode" v-if="activeNote" />
+            </client-only>
         </div>
 	</div>
 </template>
@@ -26,8 +42,30 @@ onMounted(getNotes);
 
 const activeNoteId: Ref<number|null> = ref(null);
 
+const activeNote: ComputedRef<NoteInterface | undefined> = computed(() => {
+    return notes.value.find((note) => note.id == activeNoteId.value)
+});
+
 const updateActiveNoteId = (id: number) => {
     activeNoteId.value = id;
+}
+
+const searchQuery: Ref<string> = ref('');
+
+const onSearch = (query: Ref<string>) => {
+    searchQuery.value = query.value;
+}
+
+const filteredNotes = computed(() => {
+    return notes.value.filter((note) => note.content.includes(searchQuery.value))
+});
+
+const notesToDisplay = computed(() => filteredNotes.value.length ? filteredNotes.value : notes.value);
+
+const editingMode: Ref<boolean> = ref(false);
+
+const onEdit = () => {
+    editingMode.value = true;
 }
 
 </script>
@@ -39,7 +77,7 @@ const updateActiveNoteId = (id: number) => {
 
         &__sidebar {
             width: 25%;
-            border-right: 1px solid #e7eaf6;
+            border-right: 1px solid $primary;
         }
 
         &__content {
