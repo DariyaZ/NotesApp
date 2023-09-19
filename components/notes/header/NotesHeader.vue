@@ -10,8 +10,6 @@
 </template>
 
 <script setup lang="ts">
-import { debounce } from "lodash";
-
 import idb from '@/api/notes';
 
 const props = defineProps({
@@ -25,7 +23,7 @@ const searchQuery: Ref<string> = ref('');
 
 const emit = defineEmits(['onSearch', 'onEdit']);
 
-const search = debounce(
+const search = useDebounce(
     () => {
         emit('onSearch', searchQuery);
     },

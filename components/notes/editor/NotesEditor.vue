@@ -15,8 +15,6 @@ import { NoteInterface } from '@/utils/interfaces';
 
 import idb from '@/api/notes';
 
-import { debounce } from "lodash";
-
 const SAVE_NOTE_DEBOUNCE_MS: number = 1000;
 
 const props = defineProps({
@@ -38,7 +36,7 @@ const editor = useEditor({
   },
 })
 
-const updateNote = debounce(
+const updateNote = useDebounce(
     async (html) => {
         await idb.saveNote({...props.note, content: html});
         await emit('getNotes');
