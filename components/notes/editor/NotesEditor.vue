@@ -2,6 +2,8 @@
     <div class="notes-editor">
         <p class="notes-editor__date">{{ useConvertDate(note?.updated) }}</p>
 
+        <input v-model="title" @input="updateNote()" >
+
         <div v-if="editor && editingMode">
             <NotesEditorMenu :editor="editor" />
         </div>
@@ -40,7 +42,15 @@ const editor = useEditor({
 
 const updateNote = useDebounce(
     async (html) => {
-        await idb.saveNote({...props.note, content: html, updated: Date.now()});
+        let note = {...props.note, updated: Date.now()};
+
+        if (html) {
+            note = {...note, content: html};
+        } else {
+            note = {...note, title: title.value};
+        }
+
+        await idb.saveNote(note);
         await emit('getNotes');
     },
     SAVE_NOTE_DEBOUNCE_MS
@@ -49,6 +59,8 @@ const updateNote = useDebounce(
 const setEditorContent = () => {
     editor.value.setContent(props.notes.content);
 }
+
+const title: Ref<string> = ref(props.note.title);
 
 watch(() => props.editingMode, (newMode, oldMode) => {
     editor.value.setEditable(newMode, false);
@@ -59,6 +71,7 @@ watch(() => props.editingMode, (newMode, oldMode) => {
 })
 
 watch(() => props.note, (newNote, oldNote) => {
+    title.value = props.note.title;
     editor.value.commands.setContent(newNote.content);
 })
 
@@ -70,6 +83,13 @@ watch(() => props.note, (newNote, oldNote) => {
 
     &__date {
         text-align: center;
+    }
+
+    input {
+        border-radius: 0;
+        border: none;
+        font-size: 2rem;
+        font-weight: bold;
     }
 
     .tiptap {
