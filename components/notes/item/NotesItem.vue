@@ -5,7 +5,7 @@
         <h3>{{ note.title }}</h3>
         <div>
             <span class="notes-item__date">{{ getDate(note.date) }}</span>
-            <span class="notes-item__content" v-html="useTruncateString(note.content) || PLACEHOLDER"></span>
+            <span class="notes-item__content">{{ formattedContent }}</span>
         </div>
     </div>
 </template>
@@ -23,6 +23,11 @@ const getDate = (ms: number) => {
     const date = new Date(ms);
     return `${date.getHours()} : ${date.getMinutes()}`;
 }
+
+const formattedContent: ComputedRef<string> = computed(() => {
+    const content = useConvertHTMLToText(props.note.content) || PLACEHOLDER;
+    return useTruncateString(content);
+})
 
 </script>
 
