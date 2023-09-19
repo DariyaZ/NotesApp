@@ -1,6 +1,6 @@
 <template>
     <div class="notes-editor">
-        <p class="notes-editor__date">{{ useConvertDate(note?.date) }}</p>
+        <p class="notes-editor__date">{{ useConvertDate(note?.updated) }}</p>
 
         <div v-if="editor && editingMode">
             <NotesEditorMenu :editor="editor" />
@@ -40,7 +40,7 @@ const editor = useEditor({
 
 const updateNote = useDebounce(
     async (html) => {
-        await idb.saveNote({...props.note, content: html});
+        await idb.saveNote({...props.note, content: html, updated: Date.now()});
         await emit('getNotes');
     },
     SAVE_NOTE_DEBOUNCE_MS

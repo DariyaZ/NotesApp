@@ -1,6 +1,7 @@
 export interface NoteInterface {
     id?: number;
     title: string;
-    date: Date | number;
+    created: Date | number;
+    updated: Date | number;
     content: string;
 }

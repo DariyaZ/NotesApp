@@ -23,7 +23,8 @@ import idb from '@/api/notes';
 import { NoteInterface } from '@/utils/interfaces';
 
 const EMPTY_NOTE: NoteInterface = {
-    date: Date.now(),
+    created: Date.now(),
+    updated: Date.now(),
     title: 'New Note',
     content: ''
 }

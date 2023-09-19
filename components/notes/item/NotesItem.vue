@@ -4,7 +4,7 @@
     >
         <h3>{{ note.title }}</h3>
         <div>
-            <span class="notes-item__date">{{ getDate(note.date) }}</span>
+            <span class="notes-item__date">{{ getDate(note.updated) }}</span>
             <span class="notes-item__content">{{ formattedContent }}</span>
         </div>
     </div>

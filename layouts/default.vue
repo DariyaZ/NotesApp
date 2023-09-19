@@ -31,7 +31,7 @@ const notes: Ref<NoteInterface[]> = ref([]);
 
 const getNotes = async () => {
     const dbNotes = await idb.getNotes() as NoteInterface[];
-    notes.value = dbNotes.reverse();
+    notes.value = useOrderBy(dbNotes, 'updated', 'desc');
 }
 
 onMounted(async () => {
