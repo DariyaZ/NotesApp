@@ -42,6 +42,13 @@ const editNote = async () => {
 .editor-header {
     display: flex;
     justify-content: space-between;
-    padding: 10px;
+    align-items: center;
+    padding: 10px 20px;
+
+    @media screen and (max-width: 480px) {
+        input {
+            width: 70%;
+        }
+    }
 }
 </style>

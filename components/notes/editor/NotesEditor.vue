@@ -66,7 +66,7 @@ watch(() => props.note, (newNote, oldNote) => {
 
 <style lang="scss">
 .notes-editor {
-    padding: 10px;
+    padding: 10px 20px;
 
     .tiptap {
         border: none;
@@ -74,6 +74,10 @@ watch(() => props.note, (newNote, oldNote) => {
         border-radius: 15px;
         height: 85vh;
         padding: 10px;
+
+        @media screen and (max-width: 769px) {
+            height: auto;
+        }
 
         &.ProseMirror-focused {
             border: 1px solid $primary;

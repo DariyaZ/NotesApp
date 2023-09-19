@@ -32,6 +32,7 @@ const getDate = (ms: number) => {
     padding: 20px;
     border-radius: 15px;
     margin-bottom: 20px;
+    border-bottom: $primary-border;
 
     &_active {
         background-color: $secondary;

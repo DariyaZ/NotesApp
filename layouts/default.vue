@@ -86,5 +86,18 @@ const onEdit = () => {
         &__content {
             width: 75%;
         }
+
+        @media screen and (max-width: 769px) {
+            flex-direction: column;
+
+            &__sidebar {
+                width: 100%;
+                border-right: none;
+            }
+
+            &__content {
+                width: 100%;
+            }
+        }
     }
 </style>
