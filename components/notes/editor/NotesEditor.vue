@@ -2,7 +2,7 @@
     <div class="notes-editor">
         <p class="notes-editor__date">{{ useConvertDate(note?.updated) }}</p>
 
-        <input v-model="title" @input="updateNote()" >
+        <input v-model="title" @input="updateNote()" :disabled="!editingMode" >
 
         <div v-if="editor && editingMode">
             <NotesEditorMenu :editor="editor" />
@@ -90,6 +90,10 @@ watch(() => props.note, (newNote, oldNote) => {
         border: none;
         font-size: 2rem;
         font-weight: bold;
+
+        &:disabled {
+            background-color: transparent;
+        }
     }
 
     .tiptap {

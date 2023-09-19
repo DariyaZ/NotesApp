@@ -69,7 +69,7 @@ const notesToDisplay = computed(() => filteredNotes.value.length ? filteredNotes
 const editingMode: Ref<boolean> = ref(false);
 
 const onEdit = () => {
-    editingMode.value = true;
+    editingMode.value = !editingMode.value;
 }
 
 </script>

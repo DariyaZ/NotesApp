@@ -53,6 +53,7 @@ const props = defineProps(['editor']);
 <style lang="scss">
     .notes-buttons {
         margin-bottom: 10px;
+        margin-top: 15px;
 
         button {
             min-height: 30px;

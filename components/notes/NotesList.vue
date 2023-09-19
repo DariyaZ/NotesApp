@@ -1,7 +1,7 @@
 <template>
     <div class="notes-list">
         <div class="notes-list__header">
-            <Icon name="material-symbols:add-circle-outline" color="grey" size="25" @click="addNote(EMPTY_NOTE)" />
+            <Icon name="material-symbols:add-circle-outline" color="grey" size="25" @click="addNote()" />
             <button @click="deleteNote(activeNoteId)" :disabled="!activeNoteId">
                 <Icon name="material-symbols:delete-outline" color="grey" size="25" />
             </button>
@@ -22,13 +22,6 @@ import idb from '@/api/notes';
 
 import { NoteInterface } from '@/utils/interfaces';
 
-const EMPTY_NOTE: NoteInterface = {
-    created: Date.now(),
-    updated: Date.now(),
-    title: 'New Note',
-    content: ''
-}
-
 const props = defineProps({
   notes: Array<NoteInterface>,
   activeNoteId: Number,
@@ -36,8 +29,13 @@ const props = defineProps({
 
 const emit = defineEmits(['getNotes', 'updateActiveNoteId']);
 
-const addNote = async (note: NoteInterface) => {
-    await idb.saveNote({...note});
+const addNote = async () => {
+    await idb.saveNote({
+        created: Date.now(),
+        updated: Date.now(),
+        title: 'New Note',
+        content: ''
+    });
     await emit('getNotes');
 
     setTimeout(() => {
