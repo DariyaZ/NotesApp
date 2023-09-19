@@ -57,6 +57,7 @@ const searchQuery: Ref<string> = ref('');
 
 const onSearch = (query: Ref<string>) => {
     searchQuery.value = query.value;
+    updateActiveNoteId(notesToDisplay.value[0]?.id);
 }
 
 const filteredNotes = computed(() => {

@@ -1,5 +1,7 @@
 <template>
     <div class="notes-editor">
+        <p class="notes-editor__date">{{ useConvertDate(note?.date) }}</p>
+
         <div v-if="editor && editingMode">
             <NotesEditorMenu :editor="editor" />
         </div>
@@ -65,6 +67,10 @@ watch(() => props.note, (newNote, oldNote) => {
 <style lang="scss">
 .notes-editor {
     padding: 10px 20px;
+
+    &__date {
+        text-align: center;
+    }
 
     .tiptap {
         border: none;
