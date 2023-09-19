@@ -2,8 +2,7 @@
     <div class="editor-header">
         <Icon name="material-symbols:box-edit-outline" color="grey" size="25" @click="editNote()" />
 
-        <input class="editor-header__search"
-            v-model="searchQuery"
+        <input v-model="searchQuery"
             @input="search()"
             :placeholder="SEARCH_PLACEHOLDER"
         >
@@ -44,16 +43,5 @@ const editNote = async () => {
     display: flex;
     justify-content: space-between;
     padding: 10px;
-
-    &__search {
-        min-height: 30px;
-        border: 1px solid $primary;
-        border-radius: 10px;
-        padding: 0 10px;
-
-        &:focus {
-            outline: none;
-        }
-    }
 }
 </style>

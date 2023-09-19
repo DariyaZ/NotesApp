@@ -1,6 +1,6 @@
 <template>
     <div class="notes-editor">
-        <div v-if="editor">
+        <div v-if="editor && editingMode">
             <NotesEditorMenu :editor="editor" />
         </div>
         <editor-content :editor="editor" />
@@ -17,10 +17,10 @@ import idb from '@/api/notes';
 
 import { debounce } from "lodash";
 
-const SAVE_NOTE_DEBOUNCE_MS: number = 1500;
+const SAVE_NOTE_DEBOUNCE_MS: number = 1000;
 
 const props = defineProps({
-  note: NoteInterface,
+  note: Object,
   editingMode: Boolean,
 })
 
@@ -29,11 +29,6 @@ const emit = defineEmits(['getNotes']);
 const editor = useEditor({
   content: props.note.content,
   editable: false,
-  editorProps: {
-    attributes: {
-      class: 'notes-editor__content',
-    },
-  },
   extensions: [
     StarterKit,
   ],
@@ -56,8 +51,9 @@ const setEditorContent = () => {
 }
 
 watch(() => props.editingMode, (newMode, oldMode) => {
+    editor.value.setEditable(newMode, false);
+
     if (newMode) {
-        editor.value.setEditable(true);
         editor.value.chain().focus();
     }
 })
@@ -72,11 +68,16 @@ watch(() => props.note, (newNote, oldNote) => {
 .notes-editor {
     padding: 10px;
 
-    &__content {
-        padding: 10px;
-        border: 1px solid $primary;
+    .tiptap {
+        border: none;
+        outline: none;
         border-radius: 15px;
         height: 85vh;
+        padding: 10px;
+
+        &.ProseMirror-focused {
+            border: 1px solid $primary;
+        }
     }
 }
 

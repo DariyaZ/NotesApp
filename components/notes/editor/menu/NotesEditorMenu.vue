@@ -52,7 +52,7 @@ const props = defineProps(['editor']);
 
 <style lang="scss">
     .notes-buttons {
-        margin-bottom: 20px;
+        margin-bottom: 10px;
 
         button {
             min-height: 30px;
@@ -63,6 +63,12 @@ const props = defineProps(['editor']);
             color: $dark-blue;
             font-weight: bold;
             padding: 0 10px;
+            margin-bottom: 10px;
+        }
+
+        .is-active {
+            background-color: $secondary;
+            color: white;
         }
     }
 </style>

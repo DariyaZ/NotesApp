@@ -16,7 +16,7 @@
                 @getNotes="getNotes"
             />
             <client-only>
-                <NotesEditor :note="activeNote" :editingMode="editingMode" v-if="activeNote" />
+                <NotesEditor :note="activeNote" :editingMode="editingMode" v-if="activeNote" @getNotes="getNotes" />
             </client-only>
         </div>
 	</div>
@@ -32,13 +32,15 @@ const notes: Ref<NoteInterface[]> = ref([]);
 const getNotes = async () => {
     const dbNotes = await idb.getNotes() as NoteInterface[];
     notes.value = dbNotes.reverse();
+}
 
+onMounted(async () => {
+    await getNotes();
+    
     if (notes.value.length) {
         updateActiveNoteId(notes.value[0]?.id);
     }
-}
-
-onMounted(getNotes);
+});
 
 const activeNoteId: Ref<number|null> = ref(null);
 
@@ -48,6 +50,7 @@ const activeNote: ComputedRef<NoteInterface | undefined> = computed(() => {
 
 const updateActiveNoteId = (id: number) => {
     activeNoteId.value = id;
+    editingMode.value = false;
 }
 
 const searchQuery: Ref<string> = ref('');

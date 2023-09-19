@@ -38,6 +38,10 @@ const emit = defineEmits(['getNotes', 'updateActiveNoteId']);
 const addNote = async (note: NoteInterface) => {
     await idb.saveNote({...note});
     await emit('getNotes');
+
+    setTimeout(() => {
+        emit('updateActiveNoteId', props.notes[0]?.id);
+    }, 200)
 }
 
 
@@ -48,6 +52,10 @@ const selectNote = (note: NoteInterface) => {
 const deleteNote = async (id: number | undefined) => {
     await idb.deleteNote(id);
     emit('getNotes');
+
+    setTimeout(() => {
+        emit('updateActiveNoteId', props.notes[0]?.id);
+    }, 200)
 }
 
 </script>
